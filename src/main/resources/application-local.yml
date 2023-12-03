@@ -1,0 +1,3 @@
+DB_URL: jdbc:postgresql://localhost:5432/sandbox
+DB_USERNAME: sandbox
+DB_PASSWORD: sandbox_password
