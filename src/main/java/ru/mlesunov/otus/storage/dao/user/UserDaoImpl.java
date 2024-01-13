@@ -11,10 +11,10 @@ import ru.mlesunov.otus.entity.User;
 import ru.mlesunov.otus.storage.dao.user.mapper.UserRowMapper;
 
 import java.sql.Types;
+import java.util.List;
 import java.util.Optional;
 
-import static ru.mlesunov.otus.storage.dao.user.UserSqlScriptStorage.GET_USER_BY_ID;
-import static ru.mlesunov.otus.storage.dao.user.UserSqlScriptStorage.INSERT_USER;
+import static ru.mlesunov.otus.storage.dao.user.UserSqlScriptStorage.*;
 
 @Slf4j
 @Transactional
@@ -29,10 +29,10 @@ public class UserDaoImpl implements UserDao{
         var parameterSource = new MapSqlParameterSource()
                 .addValue("id", user.getId(), Types.OTHER)
                 .addValue("firstName", user.getFirstName())
-                .addValue("secondName", user.getFirstName())
+                .addValue("secondName", user.getSecondName())
                 .addValue("birthdate", user.getBirthdate())
-                .addValue("biography", user.getFirstName())
-                .addValue("city", user.getFirstName())
+                .addValue("biography", user.getBiography())
+                .addValue("city", user.getCity())
                 .addValue("password", user.getPassword());
         namedParameterJdbcTemplate.update(INSERT_USER, parameterSource);
     }
@@ -49,5 +49,17 @@ public class UserDaoImpl implements UserDao{
         } catch (EmptyResultDataAccessException exception){
             return Optional.empty();
         }
+    }
+
+    @Override
+    public List<User> getUsersByFirstNameAndSecondName(String firstName, String secondName) {
+        var parameterSource = new MapSqlParameterSource()
+                .addValue("firstName", firstName+'%')
+                .addValue("secondName", secondName+'%');
+
+        return namedParameterJdbcTemplate.query(
+                GET_USERS_BY_FIRST_NAME_AND_SECOND_NAME,
+                parameterSource,
+                 new UserRowMapper());
     }
 }

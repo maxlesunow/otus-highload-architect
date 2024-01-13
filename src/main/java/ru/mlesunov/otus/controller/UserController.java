@@ -17,6 +17,8 @@ import ru.mlesunov.otus.openapi.model.UserRegisterPostRequest;
 import ru.mlesunov.otus.security.jwt.JwtService;
 import ru.mlesunov.otus.service.UserService;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 public class UserController implements DefaultApi {
@@ -64,5 +66,18 @@ public class UserController implements DefaultApi {
         response.setUserId(user.getId().toString());
 
         return ResponseEntity.ok(response);
+    }
+
+    @Override
+    public ResponseEntity<List<ru.mlesunov.otus.openapi.model.User>> userSearchGet(String firstName, String secondName){
+
+        List<User> users = userService.searchUsers(firstName, secondName);
+
+        List<ru.mlesunov.otus.openapi.model.User> usersDto = users
+                .stream()
+                .map(user -> modelMapper.map(user, ru.mlesunov.otus.openapi.model.User.class))
+                .toList();
+
+        return ResponseEntity.ok(usersDto);
     }
 }

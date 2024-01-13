@@ -10,6 +10,7 @@ import ru.mlesunov.otus.openapi.model.UserRegisterPostRequest;
 import ru.mlesunov.otus.service.UserService;
 import ru.mlesunov.otus.storage.dao.user.UserDaoImpl;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -21,6 +22,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findById(String id) {
         return userDao.getUserById(id);
+    }
+
+    @Override
+    public List<User> searchUsers(String firstName, String secondName) {
+        return userDao.getUsersByFirstNameAndSecondName(firstName, secondName);
     }
 
     @Override
