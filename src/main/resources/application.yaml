@@ -9,5 +9,5 @@ spring:
     url: ${DB_URL}
     password: ${DB_PASSWORD}
 seed:
-  enabled: true
-  users-count: 1000000
+  enabled: ${SEED_ENABLED}
+  users-count: ${SEED_USERS_COUNT}

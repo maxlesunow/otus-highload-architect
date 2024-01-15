@@ -1,6 +1,6 @@
 services:
   backend:
-    image: client:0.0.1
+    image: client:0.0.2
     build:
       context: .
       dockerfile: Dockerfile
@@ -13,6 +13,8 @@ services:
       DB_URL: jdbc:postgresql://db_pg:5432/${DB_NAME}
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
+      SEED_ENABLED: true
+      SEED_USERS_COUNT: 1000000
   db_pg:
     image: postgres:15
     environment:

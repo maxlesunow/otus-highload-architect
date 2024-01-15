@@ -54,8 +54,8 @@ public class UserDaoImpl implements UserDao{
     @Override
     public List<User> getUsersByFirstNameAndSecondName(String firstName, String secondName) {
         var parameterSource = new MapSqlParameterSource()
-                .addValue("firstName", firstName+'%')
-                .addValue("secondName", secondName+'%');
+                .addValue("firstName", firstName.toUpperCase()+'%')
+                .addValue("secondName", secondName.toUpperCase()+'%');
 
         return namedParameterJdbcTemplate.query(
                 GET_USERS_BY_FIRST_NAME_AND_SECOND_NAME,
