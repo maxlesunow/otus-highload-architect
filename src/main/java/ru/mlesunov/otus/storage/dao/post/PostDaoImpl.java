@@ -10,10 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.mlesunov.otus.entity.Post;
 import ru.mlesunov.otus.storage.dao.post.mapper.PostRowMapper;
 
+import java.math.BigDecimal;
 import java.sql.Types;
+import java.util.List;
 import java.util.Optional;
 
 import static ru.mlesunov.otus.storage.dao.post.PostSqlScriptStorage.*;
+
 
 @Slf4j
 @Transactional
@@ -73,6 +76,20 @@ public class PostDaoImpl implements PostDao {
         } catch (EmptyResultDataAccessException exception){
             return Optional.empty();
         }
+    }
+
+    @Override
+    public List<Post> getFriendsPostsByUserId(String userId, BigDecimal offset, BigDecimal limit) {
+
+        var parameterSource = new MapSqlParameterSource()
+                .addValue("userId", userId, Types.OTHER)
+                .addValue("offset", offset)
+                .addValue("limit", limit);
+
+        return namedParameterJdbcTemplate.query(
+                GET_FRIENDS_POSTS_BY_USER_ID,
+                parameterSource,
+                new PostRowMapper());
     }
 
 }

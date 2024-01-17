@@ -11,4 +11,6 @@ public class PostSqlScriptStorage {
     static final String DELETE_POST = loadResource("sql/post/deletePost.sql");
     static final String GET_POST_BY_ID = loadResource("sql/post/getPostById.sql");
     static final String GET_POST_BY_ID_AND_AUTHOR_USER_ID = loadResource("sql/post/getPostByIdAndAuthorUserId.sql");
+    static final String GET_FRIENDS_POSTS_BY_USER_ID = loadResource("sql/post/getFriendsPostsByUserId.sql");
+
 }

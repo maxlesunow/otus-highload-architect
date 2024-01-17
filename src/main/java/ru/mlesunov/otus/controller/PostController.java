@@ -10,6 +10,9 @@ import ru.mlesunov.otus.openapi.model.PostCreatePostRequest;
 import ru.mlesunov.otus.openapi.model.PostUpdatePutRequest;
 import ru.mlesunov.otus.service.PostService;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 public class PostController implements PostApi {
@@ -58,5 +61,18 @@ public class PostController implements PostApi {
         else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @Override
+    public ResponseEntity<List<ru.mlesunov.otus.openapi.model.Post>> postFeedGet(BigDecimal offset, BigDecimal limit) {
+
+        List<Post> posts = postService.getFriendsPostsByUserId(offset, limit);
+
+        List<ru.mlesunov.otus.openapi.model.Post> postsDto = posts
+                .stream()
+                .map(post -> modelMapper.map(post, ru.mlesunov.otus.openapi.model.Post.class))
+                .toList();
+
+        return ResponseEntity.ok(postsDto);
     }
 }

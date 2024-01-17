@@ -10,6 +10,8 @@ import ru.mlesunov.otus.openapi.model.PostUpdatePutRequest;
 import ru.mlesunov.otus.service.PostService;
 import ru.mlesunov.otus.storage.dao.post.PostDaoImpl;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -49,6 +51,13 @@ public class PostServiceImpl implements PostService {
     @Override
     public void deletePost(Post post) {
         postDao.deletePost(post);
+    }
+
+    @Override
+    public List<Post> getFriendsPostsByUserId(BigDecimal offset, BigDecimal limit) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return postDao.getFriendsPostsByUserId(authentication.getName(), offset, limit);
     }
 
 }
