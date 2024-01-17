@@ -1,6 +1,6 @@
 create table users
 (
-    id          uuid    not null,
+    id          uuid    not null    unique,
     first_name  text    not null,
     second_name text    not null,
     birthdate   date,
