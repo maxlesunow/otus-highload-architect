@@ -223,7 +223,7 @@
     },
     "/friend/set/{user_id}": {
       "put": {
-        "tags": ["user"],
+        "tags": ["friend"],
         "security": [
           {
             "bearerAuth": []
@@ -260,7 +260,7 @@
     },
     "/friend/delete/{user_id}": {
       "put": {
-        "tags": ["user"],
+        "tags": ["friend"],
         "security": [
           {
             "bearerAuth": []
