@@ -8,10 +8,9 @@ import java.util.UUID;
 
 @Data
 @Accessors (chain = true)
-public class Post  {
+public class Feed {
 
-    private UUID id;
-    private UUID authorUserId;
-    private String text;
-    private LocalDateTime createdAt;
+    private UUID userId;
+    private UUID postId;
+    private LocalDateTime postCreatedAt;
 }

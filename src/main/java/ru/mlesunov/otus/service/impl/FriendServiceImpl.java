@@ -21,7 +21,6 @@ public class FriendServiceImpl implements FriendService {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Friend post = new Friend()
-                .setId(UUID.randomUUID())
                 .setUserId(UUID.fromString(authentication.getName()))
                 .setFriendId(UUID.fromString(friendUserId));
         friendDao.saveFriend(post);

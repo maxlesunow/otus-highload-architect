@@ -7,10 +7,13 @@ import org.springframework.stereotype.Service;
 import ru.mlesunov.otus.entity.Post;
 import ru.mlesunov.otus.openapi.model.PostCreatePostRequest;
 import ru.mlesunov.otus.openapi.model.PostUpdatePutRequest;
+import ru.mlesunov.otus.service.FeedService;
 import ru.mlesunov.otus.service.PostService;
+import ru.mlesunov.otus.storage.dao.feed.FeedDaoImpl;
 import ru.mlesunov.otus.storage.dao.post.PostDaoImpl;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -20,6 +23,8 @@ import java.util.UUID;
 public class PostServiceImpl implements PostService {
 
     private final PostDaoImpl postDao;
+    private final FeedDaoImpl feedDao;
+
     public Optional<Post> findById(String id) {
         return postDao.getPostById(id);
     }
@@ -36,9 +41,13 @@ public class PostServiceImpl implements PostService {
         Post post = new Post()
                 .setId(UUID.randomUUID())
                 .setText(postCreatePostRequest.getText())
-                .setAuthorUserId(UUID.fromString(authentication.getName()));
+                .setAuthorUserId(UUID.fromString(authentication.getName()))
+                .setCreatedAt(LocalDateTime.now());
         postDao.savePost(post);
 
+        // ToDo: кидаем в очередь для формирования ленты
+        FeedService feedService = new FeedServiceImpl(feedDao);
+        feedService.addNewPostToFeed(post);
         return post;
     }
 

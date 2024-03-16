@@ -2,7 +2,6 @@ package ru.mlesunov.otus.storage.dao.friend;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,6 @@ public class FriendDaoImpl implements FriendDao {
     @Override
     public void saveFriend(Friend friend) {
         var parameterSource = new MapSqlParameterSource()
-                .addValue("id", friend.getId(), Types.OTHER)
                 .addValue("user_id", friend.getUserId())
                 .addValue("friend_user_id", friend.getFriendId());
         namedParameterJdbcTemplate.update(INSERT_FRIEND, parameterSource);

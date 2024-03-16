@@ -1,6 +1,5 @@
 package ru.mlesunov.otus.config.properties;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -15,4 +14,5 @@ import org.springframework.validation.annotation.Validated;
 public class SeedProperties {
     private Boolean enabled;
     private Integer usersCount;
+    private Integer maxFriendsCount;
 }

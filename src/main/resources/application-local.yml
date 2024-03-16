@@ -2,4 +2,5 @@ DB_URL: jdbc:postgresql://localhost:5432/sandbox
 DB_USERNAME: sandbox
 DB_PASSWORD: sandbox_password
 SEED_ENABLED: false
-SEED_USERS_COUNT: 1000000
+SEED_USERS_COUNT: 1000
+SEED_MAX_FRIENDS_COUNT: 1000

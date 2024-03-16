@@ -31,7 +31,8 @@ public class PostDaoImpl implements PostDao {
         var parameterSource = new MapSqlParameterSource()
                 .addValue("id", post.getId(), Types.OTHER)
                 .addValue("text", post.getText())
-                .addValue("author_user_id", post.getAuthorUserId());
+                .addValue("author_user_id", post.getAuthorUserId())
+                .addValue("created_at", post.getCreatedAt());
         namedParameterJdbcTemplate.update(INSERT_POST, parameterSource);
     }
 

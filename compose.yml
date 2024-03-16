@@ -8,6 +8,7 @@ services:
       - 8181:8181
     depends_on:
       - db_pg
+      - redis
     environment:
       SERVER_PORT: 8181
       DB_URL: jdbc:postgresql://db_pg:5432/${DB_NAME}
@@ -23,3 +24,9 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - 5432:5432
+  redis:
+    image: "redis"
+    ports:
+      - "6379:6379"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes

@@ -1,2 +1,2 @@
-insert into posts(id, text, author_user_id)
-values (:id, :text, :author_user_id)
+insert into posts(id, text, author_user_id, created_at)
+values (:id, :text, :author_user_id, :created_at)

@@ -1,8 +1,9 @@
 create table posts
 (
-    id              uuid    not null,
-    text            text    not null,
-    author_user_id  uuid    not null
+    id              uuid            not null    unique,
+    text            text            not null,
+    author_user_id  uuid            not null,
+    created_at      timestamptz     not null
 );
 
 ALTER TABLE posts
