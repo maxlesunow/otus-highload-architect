@@ -1,4 +1,4 @@
-package ru.mlesunov.otus.queue.feed;
+package ru.mlesunov.otus.config;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;

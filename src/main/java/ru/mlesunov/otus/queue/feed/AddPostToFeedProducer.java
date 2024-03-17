@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class RabbitMQProducer {
+public class AddPostToFeedProducer {
 
     @Value("${rabbitmq.feed.exchange.name}")
     private String exchange;

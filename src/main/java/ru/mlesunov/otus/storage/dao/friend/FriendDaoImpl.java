@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.mlesunov.otus.entity.Friend;
 
 import java.sql.Types;
+import java.util.List;
 
 import static ru.mlesunov.otus.storage.dao.friend.FriendSqlScriptStorage.*;
 
@@ -19,6 +20,18 @@ import static ru.mlesunov.otus.storage.dao.friend.FriendSqlScriptStorage.*;
 public class FriendDaoImpl implements FriendDao {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Override
+    public List<String> getFriendIdsByUserId(String userId) {
+
+        var parameterSource = new MapSqlParameterSource()
+                .addValue("userId", userId, Types.OTHER);
+
+        return namedParameterJdbcTemplate.queryForList(
+                GET_FRIEND_IDS_BY_USER_ID,
+                parameterSource,
+                String.class);
+    }
 
     @Override
     public void saveFriend(Friend friend) {

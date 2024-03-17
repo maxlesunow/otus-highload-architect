@@ -8,6 +8,7 @@ import ru.mlesunov.otus.entity.Friend;
 import ru.mlesunov.otus.service.FriendService;
 import ru.mlesunov.otus.storage.dao.friend.FriendDao;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -15,6 +16,11 @@ import java.util.UUID;
 public class FriendServiceImpl implements FriendService {
 
     private final FriendDao friendDao;
+
+    @Override
+    public List<String> getFriendIdsByUserId(String userId) {
+        return friendDao.getFriendIdsByUserId(userId);
+    }
 
     @Override
     public void setFriend(String friendUserId) {

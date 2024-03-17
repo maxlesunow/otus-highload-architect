@@ -1,15 +1,10 @@
 package ru.mlesunov.otus.service;
 
-import ru.mlesunov.otus.entity.Friend;
-import ru.mlesunov.otus.entity.Post;
-import ru.mlesunov.otus.openapi.model.PostCreatePostRequest;
-import ru.mlesunov.otus.openapi.model.PostUpdatePutRequest;
-
-import java.awt.*;
-import java.util.Optional;
+import java.util.List;
 
 public interface FriendService {
 
+    List<String> getFriendIdsByUserId(String userId);
     void setFriend(String friendUserId);
     void deleteFriend(String friendUserId);
 }

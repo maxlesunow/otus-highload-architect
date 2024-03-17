@@ -9,7 +9,7 @@ import ru.mlesunov.otus.service.FeedService;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class RabbitMQConsumer {
+public class AddPostToFeedConsumer {
 
     private final FeedService feedService;
 

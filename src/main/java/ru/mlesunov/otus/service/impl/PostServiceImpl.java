@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.mlesunov.otus.entity.Post;
 import ru.mlesunov.otus.openapi.model.PostCreatePostRequest;
 import ru.mlesunov.otus.openapi.model.PostUpdatePutRequest;
-import ru.mlesunov.otus.queue.feed.RabbitMQProducer;
+import ru.mlesunov.otus.queue.feed.AddPostToFeedProducer;
 import ru.mlesunov.otus.service.PostService;
 import ru.mlesunov.otus.storage.dao.post.PostDaoImpl;
 
@@ -22,7 +22,7 @@ import java.util.UUID;
 public class PostServiceImpl implements PostService {
 
     private final PostDaoImpl postDao;
-    private final RabbitMQProducer rabbitMQProducer;
+    private final AddPostToFeedProducer addPostToFeedProducer;
 
     public Optional<Post> findById(String id) {
         return postDao.getPostById(id);
@@ -45,7 +45,7 @@ public class PostServiceImpl implements PostService {
         postDao.savePost(post);
 
         // Кидаем в очередь для формирования ленты
-        rabbitMQProducer.sendMessage(post.getId().toString());
+        addPostToFeedProducer.sendMessage(post.getId().toString());
         return post;
     }
 
