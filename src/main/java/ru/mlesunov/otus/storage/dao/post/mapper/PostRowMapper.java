@@ -14,6 +14,7 @@ public class PostRowMapper implements RowMapper<Post> {
         return new Post()
                 .setId(rs.getObject("id", UUID.class))
                 .setText(rs.getString("text"))
-                .setAuthorUserId(rs.getObject("author_user_id", UUID.class));
+                .setAuthorUserId(rs.getObject("author_user_id", UUID.class))
+                .setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
     }
 }

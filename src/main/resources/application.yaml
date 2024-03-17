@@ -8,6 +8,21 @@ spring:
     user: ${DB_USERNAME}
     url: ${DB_URL}
     password: ${DB_PASSWORD}
+## RabbitMQ связанная конфигурация
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+rabbitmq:
+  feed:
+    queue:
+      name: addPostToFeedQueue
+    exchange:
+      name: addPostToFeedQueueExchange
+    routing:
+      key: addPostToFeedRoutingKey
 seed:
   enabled: ${SEED_ENABLED}
   users-count: ${SEED_USERS_COUNT}
+  max-friends-count: ${SEED_MAX_FRIENDS_COUNT}

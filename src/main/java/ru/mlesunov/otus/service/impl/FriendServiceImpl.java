@@ -20,10 +20,10 @@ public class FriendServiceImpl implements FriendService {
     public void setFriend(String friendUserId) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Friend post = new Friend()
+        Friend friend = new Friend()
                 .setUserId(UUID.fromString(authentication.getName()))
                 .setFriendId(UUID.fromString(friendUserId));
-        friendDao.saveFriend(post);
+        friendDao.saveFriend(friend);
     }
 
     @Override
