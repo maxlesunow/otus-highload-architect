@@ -5,46 +5,42 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import ru.mlesunov.otus.entity.UserFeed;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class FeedCachedService {
 
     private final String EMPLOYEE_CACHE = "EMPLOYEE";
 
-    private final RedisTemplate<String, Object> redisTemplate;
-    private HashOperations<String, String, Employee> hashOperations;
+    public void addPostToLenta(Long userId, WallPost wallPost) {
+        Cache cache = cacheManager.getCache(FEED_CACHE);
+        Assert.notNull(cache, LENTA_CACHE + " cache is null");
+//
+//        UserLentaDto userLentaDto = cache.get(userId, UserLentaDto.class);
 
-    private final RedisTemplate<String, List<>> redisTemplate;
+        UserLentaDto userLentaDto = wallPostService.getLentaCached(userId);
 
-    @Autowired
-    public RedisTemplateService(RedisTemplate<String, String> redisTemplate) {
-        this.redisTemplate = redisTemplate;
-    }
+        if (userLentaDto == null) {
+            userLentaDto = new UserLentaDto();
+            userLentaDto.setUserId(userId);
+        }
 
-    // This annotation makes sure that the method needs to be executed after
-    // dependency injection is done to perform any initialization.
-    @PostConstruct
-    private void intializeHashOperations() {
-        hashOperations = redisTemplate.opsForHash();
-    }
+        List<WallPostDto> wallPosts = userLentaDto.getWallPosts();
+        Optional<Long> first = wallPosts.stream()
+                .map(WallPostDto::getId)
+                .filter(wallPost.getId()::equals)
+                .findFirst();
+        if (first.isPresent()) {
+            log.warn("Post {} already in cache", wallPost);
+            return;
+        }
 
-    // Save operation.
-    @Override
-    public void save(final Employee employee) {
-        hashOperations.put(EMPLOYEE_CACHE, employee.getId(), employee);
-    }
+        wallPosts.add(wallPostToDtoConverter.convert(wallPost));
+        wallPosts.sort((w1, w2) -> w2.getDateCreated().compareTo(w1.getDateCreated()));
 
-    // Find by employee id operation.
-    @Override
-    public Employee findById(final String id) {
-        return (Employee) hashOperations.get(EMPLOYEE_CACHE, id);
-    }
-    private final RedisTemplate redisTemplate;
-    public void setUserFeed(UserFeed feed){
-        redisTemplate.
-    }
-
-    public UserFeed getUserFeedByUserId(String userId){
-
+        cache.put(userId, userLentaDto);
+        log.info("Post added to User({}) cache& Post: {}", userId, wallPost);
     }
 }
