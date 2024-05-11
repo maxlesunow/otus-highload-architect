@@ -10,10 +10,10 @@ import org.springframework.data.redis.serializer.GenericToStringSerializer;
 public class RedisConfig {
 
     // Setting up the Jedis connection factory.
-    @Bean
-    JedisConnectionFactory jedisConnectionFactory() {
-        return new JedisConnectionFactory();
-    }
+//    @Bean
+//    JedisConnectionFactory jedisConnectionFactory() {
+//        return new JedisConnectionFactory();
+//    }
 
     // Setting up the Redis template object.
 //    @Bean

@@ -1,6 +1,6 @@
 services:
   backend:
-    image: client:0.0.2
+    image: client:0.0.3
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,6 +9,7 @@ services:
     depends_on:
       - db_pg
       - redis
+      - rabbitmq
     environment:
       SERVER_PORT: 8181
       DB_URL: jdbc:postgresql://db_pg:5432/${DB_NAME}
@@ -16,6 +17,7 @@ services:
       DB_PASSWORD: ${DB_PASSWORD}
       SEED_ENABLED: true
       SEED_USERS_COUNT: 1000000
+      SEED_MAX_FRIENDS_COUNT: 10
   db_pg:
     image: postgres:15
     environment:

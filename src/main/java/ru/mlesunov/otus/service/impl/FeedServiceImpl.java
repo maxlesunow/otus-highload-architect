@@ -41,7 +41,7 @@ public class FeedServiceImpl implements FeedService {
     private void addPostToFeed(String userId, Post post){
 
         // Получить ленту из кеша
-        UserFeed feed = feedCachedService.getUserFeedByUserId(userId);
+//        UserFeed feed = feedCachedService.getUserFeedByUserId(userId);
 
             // Добавить пост с учетом сортировки
     }
